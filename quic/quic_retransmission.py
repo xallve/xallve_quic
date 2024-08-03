@@ -34,6 +34,6 @@ class RetransmissionHandler:
                 current_time = time.time()
                 for stream_id, (packet, timestamp) in list(self.sent_packets.items()):
                     if current_time - timestamp > self.retransmission_interval:
-                        print(f'Retransmitting packet on stream {stream_id}')
+                        print(f'Retransmitting packet {stream_id}')
                         self.socket.sendto(packet.serialize(), self.address)
                         self.sent_packets[stream_id] = (packet, current_time)
