@@ -2,5 +2,5 @@
 Python impl for QUIC protocol
 
 
-for now it's just too stupid :D Still going through RFC 9000 with TSL handshakes
+for now it's just too stupid :D Still going through RFC 9000 with TLS handshakes
 Ideally I'd like to make Solana's Quic implementation like a Python wrapper
