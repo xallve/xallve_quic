@@ -3,6 +3,8 @@ from quic.quic_packet import QuicPacket
 from quic.quic_connection import QuicConnection
 import threading
 
+from quic.quic_retransmission import RetransmissionHandler
+
 
 def run_server(host='localhost', port=4433, encryption_key=None):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -25,6 +27,8 @@ def run_server(host='localhost', port=4433, encryption_key=None):
                 connections[address] = QuicConnection(server_socket, address, encryption_key)
             packet = QuicPacket.deserialize(data, connections[address].encryption)
             connections[address].handle_packet(packet)
+            connections[address].retransmission_handler.acknowledge_packet(packet)
+
         except ConnectionResetError as e:
             print(f'ConnectionResetError: {e}')
         except Exception as e:
